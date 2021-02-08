@@ -28,5 +28,37 @@ Preparation: the students document the build list URL in the README.
 
 Assessment: The grader opens the build list URL by clicking on it in the README. The grader randomly clicks on a build and assesses the appropriateness of the information.<P>
 
-<script type="text/javascript" src="pageBuilder.js"></script>
-<input type="button" value="click" onclick="dummyMessage()"/> 
+<table class="firstTable">
+    <tr  class="table-info">
+        <th>Commit ID</th>
+        <th>Passed tests</th>
+        <th>Time</th>
+    </tr>
+
+    <tbody id="myTable"></tbody>
+</table>
+
+<script>
+	var postArray = [
+	    {'commit_id':'fdsf344y5vvc3', 'passed_tests':'YES', 'time':'6/10/1989'},
+	    {'commit_id':'dfsrewrwfdsff', 'passed_tests':'YES', 'time':'28/2/1900'},
+	    {'commit_id':'jtyyhfgh', 'passed_tests':'NO', 'time':'1/10/1600'},
+	    {'commit_id':'5675yt434rtgh', 'passed_tests':'YES', 'time':'11/1/1989'},
+	    {'commit_id':'4535gdfgjty', 'passed_tests':'NO', 'time':'22/10/1989'},
+	    {'commit_id':'tretghjyt46gdr', 'passed_tests':'YES', 'time':'15/5/1997'},
+	]
+	
+	buildTable(postArray)
+
+	function buildTable(pArray){
+		var table = document.getElementById('myTable')
+		for (var i = 0; i < pArray.length; i++){
+			var row = `<tr>
+							<td>${pArray[i].commit_id}</td>
+							<td>${pArray[i].passed_tests}</td>
+							<td>${pArray[i].time}</td>
+					  </tr>`
+			table.innerHTML += row
+		}
+	}
+</script>
