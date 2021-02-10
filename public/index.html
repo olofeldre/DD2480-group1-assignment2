@@ -19,26 +19,8 @@
   <CENTER>
   <H1>Assignment 2 Fundamentals of Software Engineering</H1>
     <H4>By Group 1</H4>
-  <H2>Demonstrating a few featuers this page will have</H2>
   </CENTER>
-
-  <H3>Show the latest build</H3>
-
-  Property (core CI feature #3 - notification): the CI server supports notification of CI results. At least one notification mechanism of the following list is implemented:
-
-  Commit status: the CI server sets the commit status (Länkar till en externa sida.) on the repository (REST API (Länkar till en externa sida.)n for Github)
-  Email: the CI server sends an email to the project member about the build result.
-  Preparation: The students document in the README how notification has been implemented and unit-tested.
-
-  Assessment: The grader observes the status of the change made while assessing P2. Optionally, the grader may look at the implementation or the tests of this feature.<P>
-
-  <H4>Requirements for P+: Keeping track of build history</H4>
-
-  Property (CI feature): the CI server keeps the history of the past builds. This history persists even if the server is rebooted. Each build is given a unique URL, that is accessible to get the build information (commit identifier, build date, build logs). One URL exists to list all builds.
-
-  Preparation: the students document the build list URL in the README.
-
-  Assessment: The grader opens the build list URL by clicking on it in the README. The grader randomly clicks on a build and assesses the appropriateness of the information.<P>
+  <H2>Past builds</H2>
 
   <table class="firstTable">
       <tr  class="table-info">
@@ -52,7 +34,7 @@
 </BODY>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-
+      // Creates an array with content from the Firestore database
       var postArray = [];
       firebase.firestore().collection('test').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -63,6 +45,7 @@
 
         buildTable(postArray);
 
+        // This function populates a table with the content of the array
       	function buildTable(pArray){
       		var table = document.getElementById('myTable')
       		for (var i = 0; i < pArray.length; i++){
