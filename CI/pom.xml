@@ -37,6 +37,13 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
     </dependency>
+
+    
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -69,7 +76,7 @@
           <version>2.5.2</version>
         </plugin>
     <plugin>
-    <!-- to make a single jar bundled with the dependencies--> 
+    <!-- to make a single jar bundled with the dependencies-->
       <artifactId>maven-assembly-plugin</artifactId>
       <configuration>
         <archive>
