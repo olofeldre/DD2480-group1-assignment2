@@ -3,8 +3,8 @@ package group1;
 /*
 https://netcorecloud.com/tutorials/send-email-in-java-using-gmail-smtp/?hss_channel=tw-3300992070
 
-This code is not writen by group 1 it is copied line by line from the link abouve.
-Group 1 does not clame to have writen this code.
+This code is mainly not writen by group 1 it is mostly copied from the link above.
+Group 1 does not claim to have written this code.
 */
 
 
@@ -17,12 +17,27 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Scanner;
+import java.io.File;
 
 public class email {
+    public static String readPasswordFile(String fileName){
+        try{
+            File file = new File(fileName);
+            Scanner fr = new Scanner(file);
+            String password = fr.nextLine();
+            return password;
+        }
+        catch(java.io.FileNotFoundException e){
+            System.out.println("Can't locate password file at: " + fileName);
+            return "";
+        }
+    }
 
     public static void main(String[] args) {
+        final String password = readPasswordFile("password.txt");
         // Recipient's email ID needs to be mentioned.
-        String to = "robin.wanlund@hotmail.com";
+        String to = "joakim.skoog.joakim@gmail.com";
 
         // Sender's email ID needs to be mentioned
         String from = "group1SoffaKth@gmail.com";
@@ -44,8 +59,8 @@ public class email {
 
             protected PasswordAuthentication getPasswordAuthentication() {
                 //konto: group1SoffaKth@gmail.com
-                //losen: group1arbast!QWE
-                return new PasswordAuthentication("group1SoffaKth@gmail.com", "group1arbast!QWE");
+                //losen: password.txt
+                return new PasswordAuthentication("group1SoffaKth@gmail.com", password);
 
             }
 
