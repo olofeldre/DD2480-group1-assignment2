@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Group1 HTML page</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.2.6/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.2.6/firebase-firestore.js"></script>
+    <!--
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  </head>
+  <BODY BGCOLOR="WHITE">
+  <CENTER>
+  <H1>Assignment 2 Fundamentals of Software Engineering</H1>
+    <H4>By Group 1</H4>
+  </CENTER>
+  <H2>Past builds</H2>
+
+  <table class="firstTable">
+      <tr  class="table-info">
+          <th>Commit ID</th>
+          <th>Passed tests</th>
+          <th>Time</th>
+      </tr>
+
+      <tbody id="myTable"></tbody>
+  </table>
+</BODY>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Creates an array with content from the Firestore database
+      var postArray = [];
+      firebase.firestore().collection('test').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          postArray.push({'commit_id':doc.data().commit_id,
+                          'passed_tests': doc.data().passed_tests,
+                          'timestamp': doc.data().timestamp.toDate().toString()});
+        });
+
+        buildTable(postArray);
+
+        // This function populates a table with the content of the array
+      	function buildTable(pArray){
+      		var table = document.getElementById('myTable')
+      		for (var i = 0; i < pArray.length; i++){
+      			var row = `<tr>
+      							<td>${pArray[i].commit_id}</td>
+      							<td>${pArray[i].passed_tests}</td>
+      							<td>${pArray[i].timestamp}</td>
+      					  </tr>`
+      			table.innerHTML += row
+      		}
+      	}
+      });
+  });
+  </script>
+</html>
