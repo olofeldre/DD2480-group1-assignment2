@@ -35,7 +35,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
 		BufferedReader cont = request.getReader();
 		Stream<String> linesStream = cont.lines();
 
-		//String[] lines = linesStream.toArray();
 		Object[] lines = linesStream.toArray();
 
 	       	String lineJson = (String) lines[0];
@@ -49,7 +48,6 @@ public class ContinuousIntegrationServer extends AbstractHandler
 		while(m.find()) {
 		    System.out.println("Recognize the ID of commit : " + m.group(1));
 		}
-		//System.out.println("Found value: " + m.group(0) );
 	}
 
         // here you do all the continuous integration tasks
@@ -61,13 +59,4 @@ public class ContinuousIntegrationServer extends AbstractHandler
         response.getWriter().println("CI job done");
     }
 
-    // used to start the CI server in command line
-    public static void main(String[] args) throws Exception
-    {
-	final int portNr = 8001;
-        Server server = new Server(portNr);
-        server.setHandler(new ContinuousIntegrationServer());
-        server.start();
-        server.join();
-    }
 }
