@@ -20,12 +20,18 @@ public class EmailTest
         return;
     }
 
+    // A similar negative test for the readPasswordFile function. In particular, we
+    // check that the string is case-sensitive, which it really should be.
     @Test
     public void passwordIsNotCorrect()
     {
         assertNotEquals("Hejpadig", Email.readPasswordFile("src/test/resources/t1.txt"));
         return;
     }
+
+    // Check that all configuration for the email server has been set up by actually sending
+    // an email. No more tests of sendEmailAndReportSuccess are done, in order to not spam too 
+    // many emails. 
 
     // If this test in particular fails, you have most likely not recieved the password, 
     // which is neccessary to run this server.

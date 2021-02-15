@@ -102,6 +102,7 @@ public class Email {
         }
     }
 
+    // Can be used to show that the email sending works properly.
     public static void main(String[] args) {
         sendEmailAndReportSuccess("group1SoffaKth@gmail.com", "The subject line", "Body of a message.");
     }
