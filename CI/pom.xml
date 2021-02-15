@@ -43,6 +43,12 @@
         <artifactId>json</artifactId>
         <version>20201115</version>
     </dependency>
+    <!-- firebase for java-->
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>7.1.0</version>
+    </dependency>
   </dependencies>
 
   <build>
