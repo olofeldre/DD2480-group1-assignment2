@@ -24,3 +24,7 @@ hs_err_pid*
 
 #password file
 password.txt
+
+# Firebase
+.firebase/
+.DS_Store
