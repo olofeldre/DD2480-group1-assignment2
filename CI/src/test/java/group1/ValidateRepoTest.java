@@ -1,6 +1,7 @@
 package group1;
 
 import static org.junit.Assert.*;
+import org.junit.After;
 import org.junit.Test;
 
 import java.io.File;
@@ -13,18 +14,13 @@ public class ValidateRepoTest {
     public void cloneRepo_Valid()
     {
         assertTrue(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "main"));
-        try {
-            FileUtils.deleteDirectory(new File("temp"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     // Verifies that a repo cannot be cloned when the repo link is invalid
     @Test
     public void cloneRepo_InvalidRepoLink()
     {
-        assertFalse(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2222", "main"));
+        assertFalse(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2222", "main")); 
     }
 
     // Verifies that a repo cannot be cloned when the repo link is invalid
@@ -32,5 +28,32 @@ public class ValidateRepoTest {
     public void cloneRepo_InvalidBranchName()
     {
         assertFalse(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "invalidBranchName"));
+    }
+
+    // Verifies that the repo can be compiled correctly when the branch contains correct java code
+    @Test
+    public void compileRepo_successfully()
+    {
+        assertTrue(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "test-compilable"));
+        assertTrue(ValidateRepo.CompileRepo());
+    }
+
+     // Verifies that the repo cannot be compiled when the branch contains syntax errors
+     @Test
+     public void compileRepo_notPossible()
+     {
+        assertTrue(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "test-notCompilable"));
+        assertFalse(ValidateRepo.CompileRepo());
+     }
+
+    // If a test has created a directory, it will be deleted. This function will run after each test.
+    @After
+    public void cleanup()
+    {
+        try {
+            FileUtils.deleteDirectory(new File("temp"));
+        } catch (Exception e) {
+            // Do nothing
+        }
     }
 }
