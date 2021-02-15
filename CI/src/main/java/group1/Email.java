@@ -20,7 +20,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Scanner;
 import java.io.File;
 
-public class email {
+public class Email {
     public static String readPasswordFile(String fileName){
         try{
             File file = new File(fileName);
@@ -33,11 +33,17 @@ public class email {
             return "";
         }
     }
-
-    public static void main(String[] args) {
+    /**
+     * Sends an email and returns whether the sending was successful.
+     * Also causes some logging to be written on system.out.
+     * @return true if all went well, false otherwise.
+     * @param to the email address of the recipient.
+     * @param subjectLine is the subject of the email
+     * @param messageContents is the body of the text of the mail
+     */
+    public static boolean sendEmailAndReportSuccess(String to, String subjectLine, String messageContents)
+    {
         final String password = readPasswordFile("password.txt");
-        // Recipient's email ID needs to be mentioned.
-        String to = "joakim.skoog.joakim@gmail.com";
 
         // Sender's email ID needs to be mentioned
         String from = "group1SoffaKth@gmail.com";
@@ -80,19 +86,24 @@ public class email {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            message.setSubject(subjectLine);
 
             // Now set the actual message
-            message.setText("This is actual message");
+            message.setText(messageContents);
 
             System.out.println("sending...");
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
+            return true;
         } catch (MessagingException mex) {
             mex.printStackTrace();
+            return false;
         }
+    }
 
+    public static void main(String[] args) {
+        sendEmailAndReportSuccess("group1SoffaKth@gmail.com", "The subject line", "Body of a message.");
     }
 
 }
