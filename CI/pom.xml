@@ -43,11 +43,10 @@
         <artifactId>json</artifactId>
         <version>20201115</version>
     </dependency>
-    <!-- firebase for java-->
     <dependency>
-      <groupId>com.google.firebase</groupId>
-      <artifactId>firebase-admin</artifactId>
-      <version>7.1.0</version>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
     </dependency>
   </dependencies>
 
@@ -81,7 +80,7 @@
           <version>2.5.2</version>
         </plugin>
     <plugin>
-    <!-- to make a single jar bundled with the dependencies--> 
+    <!-- to make a single jar bundled with the dependencies-->
       <artifactId>maven-assembly-plugin</artifactId>
       <configuration>
         <archive>
