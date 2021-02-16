@@ -6,7 +6,7 @@ import org.junit.Test;
 public class Test {
     // Test that passes
     @Test
-    public void cloneRepo_Valid()
+    public void trueTest()
     {
         assertTrue(true);
     }
