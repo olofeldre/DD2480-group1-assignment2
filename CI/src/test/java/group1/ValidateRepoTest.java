@@ -8,6 +8,8 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 
 public class ValidateRepoTest {
+
+    // ------------------------CloneRepo()---------------------
     
     // Verifies that a repo can be cloned when both the repo link and branch name are valid
     @Test
@@ -30,6 +32,9 @@ public class ValidateRepoTest {
         assertFalse(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "invalidBranchName"));
     }
 
+
+    // ------------------------CompileRepo()---------------------
+
     // Verifies that the repo can be compiled correctly when the branch contains correct java code
     @Test
     public void compileRepo_successfully()
@@ -46,16 +51,19 @@ public class ValidateRepoTest {
         assertFalse(ValidateRepo.CompileRepo());
      }
 
-     // Verifies that TestRepo returns true when the branch contains only passing tests
+
+     // ------------------------TestRepo()---------------------
+
+     // Verifies that TestRepo() returns true when the branch contains only passing tests
      @Test
      public void testRepo_success()
      {
         assertTrue(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "test-passingTests"));
         assertTrue(ValidateRepo.CompileRepo());
-        assertFalse(ValidateRepo.TestRepo());
+        assertTrue(ValidateRepo.TestRepo());
      }
 
-     // Verifies that TestRepo returns false when the branch contains failing tests
+     // Verifies that TestRepo() returns false when the branch contains failing tests
      @Test
      public void testRepo_failure()
      {
@@ -63,6 +71,52 @@ public class ValidateRepoTest {
         assertTrue(ValidateRepo.CompileRepo());
         assertFalse(ValidateRepo.TestRepo());
      }
+
+
+     // ------------------------Validate()---------------------
+
+     // Verifies that Validate() returns false when the repo link is invalid
+     @Test
+     public void validate_invalidRepoLink()
+     {
+         assertFalse(ValidateRepo.Validate("https://github.com/olofeldre/DD2480-group1-assignment2222", "main"));
+     }
+
+     // Verifies that Validate() returns false when the repo link is valid but the branch name is invalid
+     @Test
+     public void validate_invalidBranchName()
+     {
+         assertFalse(ValidateRepo.Validate("https://github.com/olofeldre/DD2480-group1-assignment2", "invalidBranchName"));
+     }
+
+     // Verifies that Validate() returns true when the branch contains correct java code
+     @Test
+     public void validate_compile()
+     {
+         assertTrue(ValidateRepo.Validate("https://github.com/olofeldre/DD2480-group1-assignment2", "test-compilable"));
+     }
+
+     // Verifies that Validate() returns false when the branch contains syntax errors
+     @Test
+     public void validate_failCompile()
+     {
+         assertFalse(ValidateRepo.Validate("https://github.com/olofeldre/DD2480-group1-assignment2", "test-notCompilable"));
+     }
+
+     // Verifies that Validate() returns true when the branch contains only passing tests
+     @Test
+     public void validate_passTest()
+     {
+         assertTrue(ValidateRepo.Validate("https://github.com/olofeldre/DD2480-group1-assignment2", "test-passingTests"));
+     }
+
+     // Verifies that Validate() returns false when the branch contains failing tests
+     @Test
+     public void validate_failTest()
+     {
+         assertFalse(ValidateRepo.Validate("https://github.com/olofeldre/DD2480-group1-assignment2", "test-failingTests"));
+     }
+
 
     // If a test has created a directory, it will be deleted. This function will run after each test.
     @After
