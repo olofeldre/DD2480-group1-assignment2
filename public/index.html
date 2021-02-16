@@ -50,7 +50,7 @@
       		var table = document.getElementById('myTable')
       		for (var i = 0; i < pArray.length; i++){
       			var row = `<tr>
-      							<td>${pArray[i].commit_id}</td>
+      							<td><a href="buildpage.html?id=${pArray[i].commit_id}">${pArray[i].commit_id}</a></td>
       							<td>${pArray[i].passed_tests}</td>
       							<td>${pArray[i].timestamp}</td>
       					  </tr>`

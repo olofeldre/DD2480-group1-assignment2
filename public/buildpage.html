@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<HEAD>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <TITLE>Group1 Build page</TITLE>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.2.6/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.2.6/firebase-firestore.js"></script>
+    <!--
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</HEAD>
+<BODY BGCOLOR="WHITE">
+<CENTER>
+<H1>Assignment 2 Fundamentals of Software Engineering</H1>
+  <H4>By Group 1</H4>
+<H2>Showing information about a specific build</H2>
+</CENTER>
+
+<table class="secondTable">
+      <tr  class="table-info">
+          <th>Commit ID</th>
+          <th>Branch</th>
+          <th>Compiled</th>
+          <th>Passed tests</th>
+          <th>Time</th>
+      </tr>
+
+      <tbody id="myTable"></tbody>
+  </table>
+
+<script>
+	const urlParams = new URLSearchParams(window.location.search);
+	const myParam = urlParams.get('id');
+	
+	document.addEventListener('DOMContentLoaded', function() {
+      firebase.firestore().collection('test').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+        	if(myParam == doc.data().commit_id){
+        		var table = document.getElementById('myTable')
+        		var row = `<tr>
+      							<td>${doc.data().commit_id}</td>
+      							<td>${doc.data().branch}</td>
+      							<td>${doc.data().compiled}</td>
+      							<td>${doc.data().passed_tests}</td>
+      							<td>${doc.data().timestamp}</td>
+      					  </tr>`
+      			table.innerHTML += row
+        	}
+        });
+      });
+  });
+</script>

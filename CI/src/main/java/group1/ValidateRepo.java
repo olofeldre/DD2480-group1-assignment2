@@ -40,7 +40,7 @@ class ValidateRepo {
     }
 
     /**
-     * Compiles code in the specified repo by running "mvn clean compile assembly:single" in temp/repo/CI
+     * Compiles code in the repo located at temp/repo by running "mvn clean compile assembly:single"
      * 
      * @return true if the compilation was successful, false otherwise
      */ 
