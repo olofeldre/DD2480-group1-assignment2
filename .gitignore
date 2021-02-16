@@ -28,3 +28,6 @@ password.txt
 # Firebase
 .firebase/
 .DS_Store
+
+# Maven
+CI/target/
