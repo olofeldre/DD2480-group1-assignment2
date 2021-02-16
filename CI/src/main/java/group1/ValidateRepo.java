@@ -40,10 +40,9 @@ class ValidateRepo {
     }
 
     /**
-     * Compiles code in the specified repo by running "mvn clean compile assembly:single"
+     * Compiles code in the repo located at temp/repo by running "mvn clean compile assembly:single"
      * 
-     * @param path   the path to the repo
-     * @return          true if the compilation was successful, false otherwise
+     * @return true if the compilation was successful, false otherwise
      */ 
     public static boolean CompileRepo() {
         try {
