@@ -45,16 +45,29 @@ class ValidateRepo {
      * @return true if the compilation was successful, false otherwise
      */ 
     public static boolean CompileRepo() {
+        return runCommandAndLookForKeywordInOutput("mvn clean compile assembly:single", "temp/repo/CI", "ERROR");
+    }
+
+    /**
+     * Tests code in the repo located temp/repo by running "mvn test" in temp/repo/CI
+     * 
+     * @return true if the tests were successful, false otherwise
+     */ 
+    public static boolean TestRepo() {
+        return runCommandAndLookForKeywordInOutput("mvn test", "temp/repo/CI", "ERROR");
+    }
+
+    private static boolean runCommandAndLookForKeywordInOutput(String command, String directory, String keyword) {
         try {
             String[] envp = {""};
-            Process process = Runtime.getRuntime().exec("mvn clean compile assembly:single", envp, new File("temp/repo/CI"));
+            Process process = Runtime.getRuntime().exec(command, envp, new File(directory));
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = "";
             String res = "";
             while ((line = reader.readLine()) != null) {
                 res += line;
             }
-            if (res.contains("ERROR")){
+            if (res.contains(keyword)){
                 return false;
             } else {
                 return true;
@@ -87,7 +100,7 @@ class ValidateRepo {
             check = CompileRepo();
         }
         if (check) {
-            //TODO: write code to run "mvn test"
+            check = TestRepo();
         }
         cleanup();
         return check;
