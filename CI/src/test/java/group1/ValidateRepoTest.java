@@ -46,6 +46,24 @@ public class ValidateRepoTest {
         assertFalse(ValidateRepo.CompileRepo());
      }
 
+     // Verifies that TestRepo returns true when the branch contains only passing tests
+     @Test
+     public void testRepo_success()
+     {
+        assertTrue(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "test-passingTests"));
+        assertTrue(ValidateRepo.CompileRepo());
+        assertFalse(ValidateRepo.TestRepo());
+     }
+
+     // Verifies that TestRepo returns false when the branch contains failing tests
+     @Test
+     public void testRepo_failure()
+     {
+        assertTrue(ValidateRepo.CloneRepo("https://github.com/olofeldre/DD2480-group1-assignment2", "test-failingTests"));
+        assertTrue(ValidateRepo.CompileRepo());
+        assertFalse(ValidateRepo.TestRepo());
+     }
+
     // If a test has created a directory, it will be deleted. This function will run after each test.
     @After
     public void cleanup()
