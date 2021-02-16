@@ -6,6 +6,9 @@ import org.eclipse.jgit.util.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import org.apache.commons.io.FileUtils;
 
 class ValidateRepo {
 
@@ -35,6 +38,42 @@ class ValidateRepo {
             return false;
         }
     }
+
+    /**
+     * Compiles code in the repo located at temp/repo by running "mvn clean compile assembly:single"
+     * 
+     * @return true if the compilation was successful, false otherwise
+     */ 
+    public static boolean CompileRepo() {
+        try {
+            String[] envp = {""};
+            Process process = Runtime.getRuntime().exec("mvn clean compile assembly:single", envp, new File("temp/repo/CI"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = "";
+            String res = "";
+            while ((line = reader.readLine()) != null) {
+                res += line;
+            }
+            if (res.contains("ERROR")){
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static void cleanup()
+    {
+        try {
+            FileUtils.deleteDirectory(new File("temp"));
+        } catch (Exception e) {
+            // Do nothing
+        }
+    }
+
     /**
      * Validates the specified repo by cloning, compiling and running tests
      * 
@@ -44,7 +83,13 @@ class ValidateRepo {
      */ 
     public static boolean Validate(String repoURI, String branch) {
         boolean check = CloneRepo(repoURI, branch);
-        // TODO: call other functions to compile, test and cleanup
+        if (check) {
+            check = CompileRepo();
+        }
+        if (check) {
+            //TODO: write code to run "mvn test"
+        }
+        cleanup();
         return check;
     }
 }
