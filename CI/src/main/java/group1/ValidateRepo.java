@@ -15,11 +15,11 @@ class ValidateRepo {
     public ValidateRepo() {}
     /**
      * Clones the specified branch of the specified repo into temp/repo
-     * 
+     *
      * @param repoURI   an URL to the repo
      * @param branch    the branch name
      * @return          true if the clone was successful, false otherwise
-     */ 
+     */
     //repoURI should be "https://github.com/olofeldre/DD2480-group1-assignment2"
     public static boolean CloneRepo(String repoURI, String branch) {
         String branchPath = "refs/heads/" + branch;
@@ -41,18 +41,18 @@ class ValidateRepo {
 
     /**
      * Compiles code in the repo located at temp/repo by running "mvn clean compile assembly:single"
-     * 
+     *
      * @return true if the compilation was successful, false otherwise
-     */ 
+     */
     public static boolean CompileRepo() {
         return runCommandAndLookForKeywordInOutput("mvn clean compile assembly:single", "temp/repo/CI", "ERROR");
     }
 
     /**
      * Tests code in the repo located temp/repo by running "mvn test" in temp/repo/CI
-     * 
+     *
      * @return true if the tests were successful, false otherwise
-     */ 
+     */
     public static boolean TestRepo() {
         return runCommandAndLookForKeywordInOutput("mvn test", "temp/repo/CI", "ERROR");
     }
@@ -89,11 +89,11 @@ class ValidateRepo {
 
     /**
      * Validates the specified repo by cloning, compiling and running tests
-     * 
+     *
      * @param repoURI   an URL to the repo
      * @param branch    the branch name
      * @return          true if the validation was successful, false otherwise
-     */ 
+     */
     public static boolean Validate(String repoURI, String branch) {
         boolean check = CloneRepo(repoURI, branch);
         if (check) {
@@ -105,5 +105,4 @@ class ValidateRepo {
         cleanup();
         return check;
     }
-    //This is a test
 }
