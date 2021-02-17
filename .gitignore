@@ -28,6 +28,7 @@ password.txt
 # Firebase
 .firebase/
 .DS_Store
+firebase-adminsdk-serviceAccountKey.json
 
 # Maven
 CI/target/

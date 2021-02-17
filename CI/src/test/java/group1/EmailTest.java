@@ -30,16 +30,20 @@ public class EmailTest
     }
 
     // Check that all configuration for the email server has been set up by actually sending
-    // an email. No more tests of sendEmailAndReportSuccess are done, in order to not spam too 
-    // many emails. 
+    // an email. No more tests of sendEmailAndReportSuccess are done, in order to not spam too
+    // many emails.
 
-    // If this test in particular fails, you have most likely not recieved the password, 
+    // If this test in particular fails, you have most likely not recieved the password,
     // which is neccessary to run this server.
+
+    //This test has been removed so tests are not dependent on password.txt
+    /*
     @Test
     public void sendAnEmail()
     {
-        assertTrue(Email.sendEmailAndReportSuccess("group1SoffaKth@gmail.com", 
+        assertTrue(Email.sendEmailAndReportSuccess("group1SoffaKth@gmail.com",
             "Unit tests have been run.", "A message body"));
         return;
     }
+    */
 }
