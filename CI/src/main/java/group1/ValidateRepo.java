@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import org.apache.commons.io.FileUtils;
 
+
 class ValidateRepo {
 
     public ValidateRepo() {}
@@ -60,7 +61,11 @@ class ValidateRepo {
     private static boolean runCommandAndLookForKeywordInOutput(String command, String directory, String keyword) {
         try {
             String[] envp = {""};
-            Process process = Runtime.getRuntime().exec(command, envp, new File(directory));
+            //Process process = Runtime.getRuntime().exec(command, envp, new File(directory));
+            ProcessBuilder pb = new ProcessBuilder(command);
+            pb.directory(new File(directory));
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = "";
             String res = "";
