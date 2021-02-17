@@ -40,7 +40,7 @@
         querySnapshot.forEach((doc) => {
           postArray.push({'commit_id':doc.data().commit_id,
                           'passed_tests': doc.data().passed_tests,
-                          'timestamp': doc.data().timestamp.toDate().toString()});
+                          'timestamp': doc.data().timestamp});
         });
 
         buildTable(postArray);
