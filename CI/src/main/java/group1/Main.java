@@ -9,11 +9,14 @@ import java.io.IOException;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+
 class Main
 {
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
+        InitFirebase.initialize();
+        
         Server server = new Server(8080);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
