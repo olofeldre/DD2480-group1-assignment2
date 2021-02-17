@@ -10,6 +10,7 @@ Pull requests that have not yet been merged are:
 2. Webhook, because we are waiting for the pull request to be reviewed.
 3. Email functionality, since this needs to be linked with the incoming POST notification. (Cant be done until 2. is merged)
 
+
 To start CI server
 
   $ mvn clean compile assembly:single
