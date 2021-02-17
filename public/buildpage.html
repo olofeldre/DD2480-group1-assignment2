@@ -25,7 +25,6 @@
       <tr  class="table-info">
           <th>Commit ID</th>
           <th>Branch</th>
-          <th>Compiled</th>
           <th>Passed tests</th>
           <th>Time</th>
       </tr>
@@ -36,7 +35,7 @@
 <script>
 	const urlParams = new URLSearchParams(window.location.search);
 	const myParam = urlParams.get('id');
-	
+
 	document.addEventListener('DOMContentLoaded', function() {
       firebase.firestore().collection('test').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -45,7 +44,6 @@
         		var row = `<tr>
       							<td>${doc.data().commit_id}</td>
       							<td>${doc.data().branch}</td>
-      							<td>${doc.data().compiled}</td>
       							<td>${doc.data().passed_tests}</td>
       							<td>${doc.data().timestamp}</td>
       					  </tr>`
