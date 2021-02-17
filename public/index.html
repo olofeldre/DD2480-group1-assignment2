@@ -43,6 +43,7 @@
                           'timestamp': doc.data().timestamp});
         });
 
+        postArray.sort((a, b) => (a.timestamp > b.timestamp) ? -1 : 1);
         buildTable(postArray);
 
         // This function populates a table with the content of the array
