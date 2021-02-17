@@ -1,33 +1,75 @@
 # DD2480-group1-assignment2
-Continouos integration. This repo will contain source code for an CI server
 
-Status February 11th 2021
-The Main branch now includes a HTML file filled with mocked functionality, it is not yet connected to the database and does not display dynamic data.
-The branch also contains the smallest-java-CI-server and is able to compile with Maven.
+## Statement of contributions
 
-Pull requests that have not yet been merged are:
-1. The integration of the database, because there are issues with accessing it (authentication is needed)
-2. Webhook, because we are waiting for the pull request to be reviewed.
-3. Email functionality, since this needs to be linked with the incoming POST notification. (Cant be done until 2. is merged)
+**Olof:**
+Olof has set up the build system, and contributed in several parts of the back end of the server. He has set up the webhook, and has done code to extract data from the webhook. He has also co-written the code that sends emails, and pushing data to the database. 
 
-To start CI server
+**Caroline:** Together with Anton, Caroline set up the Firebase backend and Firestore database that is used to display information on past builds on a website. They wrote code for fetching information in the database so that it could be displayed on the website. She also contributed in writing code for the CI server that clones and compiles the repo (this was also done together with Anton). 
 
-  $ mvn clean compile assembly:single
+**Robin:** Robin has contributed with implementing the frontend that displays the content of the Firestore database. Furthermore, Robin together with Joakim implemented the first version of the email notification system.
 
-  $ java -cp target/CI-1.0-SNAPSHOT-jar-with-dependencies.jar group1.Main
+**Anton:** Anton has contributed with setting up the Firebase backend and Firestore database that is used to display information on past builds on a website (together with Caroline), cloning the repo from the CI server (together with Caroline), compiling the repo from the CI server (together with Caroline), running tests from the CI server (together with Caroline), triggering the server to send notification email when receiving a post request from the webhook (together with Olof) and updating the database from the backend with build results.
 
-  $ ./ngrok http 8080
+**Joakim:** Furthermore, Joakim together with Robin implemented the first version of the email notification system. Joakim together with Olof updated the email system. Joakim together with Robin also implemented the updated frontend so each push event gets a separate url. Joakim together with Olof has set up the webhook, and has done code to extract data from the webhook. 
 
-To run email.java and send an email to Robin
+## Application
+In this assignment we have implemented a continuous integration (CI) server. This server is hosted locally and tunneled through ngrok so that it can be accessed publicly. The CI server is triggered upon push events on the Github repo using a webhook. After being notified of the event, the CI server will first clone and compile the repo. Then it will run all tests present in the test directory of the repo (path: DD2480-group1-assignment2/CI/src/test/). After that the CI server will notify all repo contributors via email whether or not the cloning, compiling and testing was successful. Furthermore, information of every single push event (successful or not) is stored in a  Firestore database. Finally, the content of the database is displayed on a website hosted on Firebase. That website displays a summary of all push events (builds) in a table. For each build present in the table, there is a unique URL linking to a page with more information of that particular build.
 
-  $ mvn clean compile assembly:single
+## Running the program
 
-  $ java -cp target/CI-1.0-SNAPSHOT-jar-with-dependencies.jar group1.email
+First, make sure that you have Maven and Java installed on your computer.
+
+In order to run the program you need to have a key for the Firebase admin SDK (generated from the Firebase console) in a file called firebase-adminsdk-serviceAccountKey.json in the CI/ folder. You will also need a file called password.txt containing the password of the CI server email account, in the /CI directory.
+
+**To start CI server, use the following commands from the CI/ directory:**
+
+    $ mvn clean compile assembly:single
+
+    $ java -cp target/CI-1.0-SNAPSHOT-jar-with-dependencies.jar group1.Main
+
+Then open a new terminal and run:
+
+    $ ./ngrok http 8080
+
+Then add the ngrok URL to the webhook of the repository to run the CI on.
+
+**To only compile and run the tests in the repo locally, use the following commands from the CI/ directory:**
+
+    $ mvn clean compile assembly:single
+
+    $ mvn tests
+
+## Git work flow
+
+This is the Git work flow that we have followed during this project:
+
+**Issues**
+- For each task to be done, an issue is created. This includes both implementation of code, as well as more project related tasks such as updating the README or reorganizing the repository.
+- Each issue should have an appropriate label, such as *enhancement*, *refactor*, or *documentation*.
+- After having decided which group member that should be responsible for a specific task, that group member should be assigned to to that task on GitHub.
+
+**Branches**
+- The default branch is called *development*.
+- When individually working on an issue, a new branch is created from the development branch. After a branch has been merged with the development branch, and when it is no longer needed, it should be deleted.
+- When creating a new branch, it should be named as follows:
+ - issueX-\<description>
+ - For example, a valid branch name would be: *issue4-LIC4*
 
 
-Statement of contribution:
-Robin:
-Joakim:
-Caroline:
-Anton:
-Olof:
+**Commits and commit messages**
+- After having completed the work of an issue, the changes should be committed to the local working branch.
+- The commit message should start with one of the following words: *feature*, *fix*, *refactor*, *doc*. That should be followed by the issue number and the issue name on the same line. This should be followed by a more detailed description on a new line. For example, the following is a valid commit message:
+
+      feature #4 issue4-LIC4
+
+      This implements the LIC4 rule as well as some tests.
+- After committing, the changes should be pushed to the local working branch. Then, a pull request should be made.
+
+**Pull requests**
+- After having pushed the changes to a local working branch, a pull request to merge the changes to the development branch should be made. The pull request is done on GitHub.
+- The pull request message should start with "*Closes #X*", where X is an issue number. This makes sure that the corresponding issue is closed when the pull request is merged to the development branch. The pull request message should also explain which changes that has been implemented.
+- Before merging any changes to the development branch, one or several group members has to approve of the changes. In order to be able to approve a pull request, the reviewer must both look at the code and successfully run the tests of the code locally. The changes can only be approved if the code seems to solve the correct problem and passes the tests. If the reviewer has some comments on the proposed changes, the person who wrote the code is responsible for updating the code and then request a new review. It is very important that the review is done by another person than the one who did the pull request.
+- If a merge conflict occurs, the person who wrote the code is responsible for fixing it. This applies even if a merge conflict appears a while after the pull request was made (e.g. if it was not present when the pull request was first made).
+
+
