@@ -16,10 +16,15 @@ class Main
     public static void main(String[] args) throws Exception
     {
         InitFirebase.initialize();
-        
-        Server server = new Server(8080);
+
+        int port = 8080; // default port
+        if (args.length > 0) {
+            port = Integer.parseInt(args[0]);
+        }
+        Server server = new Server(port);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
+        System.out.println("Listening on port " + port);
         server.join();
     }
 }
